@@ -18,3 +18,11 @@ const connection = mongoose.connection;connection.once('open', function() {
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
+
+// routes
+const applicantRouter = require('./routes/applicant');
+const recruiterRouter = require('./routes/recruiter');
+
+app.use('/applicant', applicantRouter);
+app.use('/recruiter', recruiterRouter);
+
