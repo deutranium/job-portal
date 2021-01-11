@@ -10,10 +10,14 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const name = req.body.name;
     const email = req.body.email;
+    const contact_number = Number(req.body.contact_number);
+    const bio = req.body.bio;
 
     const newRecruiter = new Recruiter({
         name,
-        email
+        email,
+        contact_number,
+        bio
     });
 
     newRecruiter.save()

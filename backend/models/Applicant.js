@@ -5,7 +5,11 @@ const Schema = mongoose.Schema;
 const applicantSchema = new Schema({
     name: {
         type: String,
-        required: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
     },
     email: {
         type: String,
@@ -16,7 +20,7 @@ const applicantSchema = new Schema({
         type: Object,
     },
     skills: {
-        type: Array,
+        type: Object,
     },
     ratings: {
         type: Array,

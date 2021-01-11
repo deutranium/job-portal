@@ -10,10 +10,16 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const name = req.body.name;
     const email = req.body.email;
+    const education = req.body.education.data;
+    const skills = req.body.skills.data;
+    const ratings = req.body.ratings.data;
 
     const newApplicant = new Applicant({
         name,
-        email
+        email,
+        education,
+        skills,
+        ratings
     });
 
     newApplicant.save()

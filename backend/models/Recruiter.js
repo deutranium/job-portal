@@ -15,6 +15,16 @@ const recruiterSchema = new Schema({
         trim: true,
         minlength: 5
     },
+    contact_number: {
+        type: Number,
+        required: true,
+        minlength: 8
+    },
+    bio: {
+        type: String,
+        trim: true,
+        maxlength: 250
+    }
 });
 
 const Recruiter = mongoose.model('Recruiter', recruiterSchema);
