@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Applicant = require('../models/Applicant');
+let Recruiter = require('../models/Recruiter');
 
 router.route('/').get((req, res) => {
     Recruiter.find()
@@ -17,7 +17,7 @@ router.route('/add').post((req, res) => {
     });
 
     newRecruiter.save()
-    .them(() => res.join('Recruiter added!'))
+    .then(() => res.send('Recruiter added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
