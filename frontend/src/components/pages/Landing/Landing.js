@@ -3,20 +3,6 @@ import AuthOptions from '../../auth/AuthOptions';
 import * as S from "./styled"
 import * as M from '@material-ui/core';
 
-import Recruiter from "./Recruiter"
-import Applicant from "./Applicant"
-
-import TabGrp from "./../../layout/Tabs/Tabs"
-
-const tabs = {
-    "Recruiter":{
-        component: <Recruiter />
-    },
-    "Applicant": {
-        component: <Applicant />
-    }
-}
-
 class Landing extends Component {
    
     render() { 
