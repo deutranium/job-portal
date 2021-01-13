@@ -15,36 +15,39 @@ export const LeftItem = styled(M.Grid)`
     background-image: url("https://images.unsplash.com/photo-1603993097397-89c963e325c7");
     background-position: center;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
 `;
 
 export const RightItem = styled(M.Grid)`
     padding: 100px 0;
+    background-color: ${(props) => props.theme.bgBlue};
 `;
 
 export const Card = styled(M.Card)`
     width: 500px;
     margin: auto;
-    padding: 50px 10px;
+    padding: 40px 10px;
+    border-bottom: 3px solid ${(props) => props.theme.accent};
 `;
 
 export const AccentText = styled.div`
     color: ${(props) => props.theme.accent};
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 600;
     margin-bottom: 10px;
 `;
 
 export const Field = styled(M.TextField)`
-    margin-top: 20px;
+    margin: 10px 0;
 `;
 
 export const Divider = styled.div`
     margin: 50px 0;
     text-transform: uppercase;
-    color: ${(props) => props.theme.accent}
+    border-bottom: 1px solid ${(props) => props.theme.accent};
 `;
 
 export const Button = styled(M.Button)`
-    margin-top: 30px;
+    margin-top: 20px;
+    font-weight: 600;
 `;

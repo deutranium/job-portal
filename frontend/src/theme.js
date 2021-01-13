@@ -3,6 +3,9 @@ import { createGlobalStyle } from "styled-components";
 export const Theme = {
     font: "'Sora', sans-serif",
     bgPrimary: "#FFFFFF",
+    bgBlue: "#d0d5ff",
+    bgRed: "#ffe0ef",
+    primary: "#18248a",
     border1: "#E5EAED",
     accent: "#9b3f6c",
     black: "#000000",
