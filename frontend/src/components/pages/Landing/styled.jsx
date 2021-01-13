@@ -19,7 +19,7 @@ export const LeftItem = styled(M.Grid)`
 `;
 
 export const RightItem = styled(M.Grid)`
-    padding: 100px 0;
+    padding: 80px 0 0 0;
     background-color: ${(props) => props.theme.bgBlue};
 `;
 

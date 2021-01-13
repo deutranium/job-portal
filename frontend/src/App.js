@@ -51,13 +51,13 @@ function App() {
                 <GlobalStyle />
                 <BrowserRouter>
                     <UserContext.Provider value={{ userData, setUserData }}>
-                        <Landing />
-                        {/* <Header />
+                        {/* <Landing /> */}
+                        {/* <Header /> */}
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-        </Switch> */}
+          <Route exact path="/" component={Landing} />
+          {/* <Route path="/register" component={Landing} />
+          <Route path="/login" component={Login} /> */}
+        </Switch>
                     </UserContext.Provider>
                 </BrowserRouter>
             </MuiThemeProvider>
