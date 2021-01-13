@@ -27,7 +27,7 @@ router.post("/register", async (req, res) => {
         .status(400)
         .json({ msg: "An account with this email already exists." });
 
-    if (!displayName) displayName = email;
+    if (!name) name = email;
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
     const newUser = new User({
       email,
       password: passwordHash,
-      displayName,
+      name,
     });
     const savedUser = await newUser.save();
     res.json(savedUser);
@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
       token,
       user: {
         id: user._id,
-        displayName: user.displayName,
+        name: user.name,
       },
     });
   } catch (err) {
@@ -105,7 +105,7 @@ router.post("/tokenIsValid", async (req, res) => {
 router.get("/", auth, async (req, res) => {
   const user = await User.findById(req.user);
   res.json({
-    displayName: user.displayName,
+    name: user.name,
     id: user._id,
   });
 });
