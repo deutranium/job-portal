@@ -8,7 +8,7 @@ import * as T from "./muiTheme";
 import * as M from "@material-ui/core"
 
 import Header from './components/layout/Header/Header';
-import Landing from './components/layout/Landing/Landing';
+import Landing from './components/pages/Landing/Landing';
 
 import Home from './components/pages/Home';
 import Register from './components/auth/Register';

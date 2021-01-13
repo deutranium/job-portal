@@ -19,7 +19,7 @@ export const LeftItem = styled(M.Grid)`
 `;
 
 export const RightItem = styled(M.Grid)`
-    padding: 200px 0;
+    padding: 100px 0;
 `;
 
 export const Card = styled(M.Card)`
@@ -36,5 +36,15 @@ export const AccentText = styled.div`
 `;
 
 export const Field = styled(M.TextField)`
-    margin-top: 10px;
+    margin-top: 20px;
+`;
+
+export const Divider = styled.div`
+    margin: 50px 0;
+    text-transform: uppercase;
+    color: ${(props) => props.theme.accent}
+`;
+
+export const Button = styled(M.Button)`
+    margin-top: 30px;
 `;
