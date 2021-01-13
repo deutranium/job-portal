@@ -29,7 +29,12 @@ export const Card = styled(M.Card)`
 `;
 
 export const AccentText = styled.div`
-    color: #9b3f6c;
+    color: ${(props) => props.theme.accent};
     font-size: 20px;
     font-weight: 300;
+    margin-bottom: 10px;
+`;
+
+export const Field = styled(M.TextField)`
+    margin-top: 10px;
 `;
