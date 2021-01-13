@@ -14,7 +14,7 @@ function Home () {
     return (
         <div>
             {userData.user ? (
-                <h1>Welcome {userData.user.displayName}</h1>
+                <h1>Welcome {userData.user.name}</h1>
             ) : (
                 <>
                     <h2>You are not logged in</h2>

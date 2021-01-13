@@ -1,12 +1,8 @@
 import React from 'react';
+import styled from "styled-components";
 
-function ErrorNotice (props) {
-    return (
-        <div className="error-notice">
-            <span>{props.message}</span>
-            <button onClick={props.clearError}>X</button>
-        </div>
-    );
-}
+const ErrorNotice = styled.div`
+    color: #ff0000;
+`;
 
 export default ErrorNotice;

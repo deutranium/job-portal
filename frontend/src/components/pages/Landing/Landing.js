@@ -5,9 +5,12 @@ import UserContext from "./../../../context/userContext"
 // import AuthOptions from '../../auth/AuthOptions';
 import * as S from "./styled"
 import * as M from '@material-ui/core';
+import ErrorNotice from '../../misc/ErrorNotice';
 
 function Landing() {
 
+
+    // Registration
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [passwordCheck, setPasswordCheck] = useState();
@@ -17,7 +20,7 @@ function Landing() {
     const { setUserData } = useContext(UserContext);
     const history = useHistory();
 
-    const submit = async (e) => {
+    const register = async (e) => {
         e.preventDefault();
 
         try {
@@ -38,6 +41,31 @@ function Landing() {
 
     };
 
+    // Login
+    // const [email, setEmail] = useState();
+    // const [password, setPassword] = useState();
+    // const [error, setError] = useState();
+
+    // const { setUserData } = useContext(UserContext);
+    // const history = useHistory();
+
+    const login = async (e) => {
+        e.preventDefault();
+        try{
+            const loginUser = {email, password};
+            const loginResponse = await axios.post("http://localhost:5000/users/login", loginUser);
+            setUserData({
+                token: loginResponse.data.token,
+                user: loginResponse.data.user
+            });
+            localStorage.setItem("auth-token", loginResponse.data.token);
+            history.push("/");
+        } catch(err) {
+            err.response.data.msg && setError(err.response.data.msg)
+        }
+        
+    };
+
 
 
     return (
@@ -51,7 +79,7 @@ function Landing() {
                             Login
                         </S.AccentText>
 
-                        {error && <h2>{error}</h2>}
+                        
 
                         <S.Field id="standard-basic" label="Email" fullWidth />
                         <S.Field id="standard-basic" type="password" label="Password" fullWidth />
@@ -66,26 +94,28 @@ function Landing() {
                         <S.AccentText>
                             Sign Up
                         </S.AccentText>
-                        <form onSubmit={submit}>
+                        {error && <ErrorNotice>{error}</ErrorNotice>}
+                        <form onSubmit={register}>
                         <S.Field id="standard-basic" label="Name" fullWidth required onChange={e => setName(e.target.value)} />
                         <S.Field id="standard-basic" label="Email" fullWidth required onChange={e => setEmail(e.target.value)} />
                         <S.Field id="standard-basic" type="password" label="Password" fullWidth required onChange={e => setPassword(e.target.value)} />
                         <S.Field id="standard-basic" type="password" label="Confirm Password" fullWidth required onChange={e => setPasswordCheck(e.target.value)} />
 
-                        <M.RadioGroup row aria-label="position" name="position">
+                        <M.RadioGroup row aria-label="position" name="position" defaultValue="applicant">
                             <M.Grid container>
+                            <M.Grid item md={6} sm={6} xs={12}>
+                                    <M.FormControlLabel
+                                        value="applicant"
+                                        control={<M.Radio color="primary" />}
+                                        label="I'm an Applicant"
+                                    />
+                                </M.Grid>
                                 <M.Grid item md={6} sm={6} xs={12}>
                                     <M.FormControlLabel
                                         value="recruiter"
                                         control={<M.Radio color="primary" />}
                                         label="I'm a Recruiter"
-                                    />
-                                </M.Grid>
-                                <M.Grid item md={6} sm={6} xs={12}>
-                                    <M.FormControlLabel
-                                        value="applicant"
-                                        control={<M.Radio color="primary" />}
-                                        label="I'm an Applicant"
+                                        selected
                                     />
                                 </M.Grid>
                             </M.Grid>

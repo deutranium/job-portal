@@ -16,6 +16,7 @@ import Login from './components/auth/Login';
 import UserContext from './context/userContext';
 import './App.css';
 import { MuiThemeProvider } from '@material-ui/core';
+import { HomeOutlined } from '@material-ui/icons';
 
 function App() {
     const [userData, setUserData] = useState({
@@ -54,9 +55,9 @@ function App() {
                         {/* <Landing /> */}
                         {/* <Header /> */}
         <Switch>
-          <Route exact path="/" component={Landing} />
-          {/* <Route path="/register" component={Landing} />
-          <Route path="/login" component={Login} /> */}
+          <Route exact path="/" component={Home} />
+          {/* {/* <Route path="/register" component={Landing} /> */}
+        <Route path="/login" component={Landing} />
         </Switch>
                     </UserContext.Provider>
                 </BrowserRouter>
