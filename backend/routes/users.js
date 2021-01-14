@@ -6,12 +6,12 @@ const User = require("../models/user.model");
 
 router.post("/register", async (req, res) => {
   try {
-    let { email, password, passwordCheck, name } = req.body;
+    let { email, password, passwordCheck, name, category } = req.body;
 
     // validate
 
     if (!email || !password || !passwordCheck)
-      return res.status(400).json({ msg: "Not all fields have been entered." });
+      return res.status(400).json({ msg: "Not all fields have been entered." + email + password + passwordCheck });
     if (password.length < 5)
       return res
         .status(400)
@@ -36,6 +36,7 @@ router.post("/register", async (req, res) => {
       email,
       password: passwordHash,
       name,
+      category
     });
     const savedUser = await newUser.save();
     res.json(savedUser);

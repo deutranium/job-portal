@@ -32,7 +32,7 @@ function Login () {
     return (
         <div className="login">
             <h2>Login</h2>
-            {error && <ErrorNotice message={error} />}
+            {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
             <form onSubmit={submit}>
                 <label>Email: </label>
                 <input type="email" id="email" onChange={e => setEmail(e.target.value)}/>

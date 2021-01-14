@@ -8,7 +8,8 @@ import * as T from "./muiTheme";
 import * as M from "@material-ui/core"
 
 import Header from './components/layout/Header/Header';
-import Landing from './components/pages/Landing/Landing';
+import Landing from './components/pages/auth/Landing';
+import SignUp from './components/pages/auth/SignUp';
 
 import Home from './components/pages/Home';
 import Register from './components/auth/Register';
@@ -56,7 +57,7 @@ function App() {
                         {/* <Header /> */}
         <Switch>
           <Route exact path="/" component={Home} />
-          {/* {/* <Route path="/register" component={Landing} /> */}
+          <Route path="/register" component={SignUp} />
         <Route path="/login" component={Landing} />
         </Switch>
                     </UserContext.Provider>

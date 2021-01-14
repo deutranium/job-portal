@@ -19,7 +19,7 @@ export const LeftItem = styled(M.Grid)`
 `;
 
 export const RightItem = styled(M.Grid)`
-    padding: 80px 0 0 0;
+    padding: 100px 0 0 0;
     background-color: ${(props) => props.theme.bgBlue};
 `;
 
@@ -48,6 +48,12 @@ export const Divider = styled.div`
 `;
 
 export const Button = styled(M.Button)`
-    margin-top: 20px;
+    margin: 20px 0;
     font-weight: 600;
+`;
+
+export const Link = styled.a`
+    color: ${(props) => props.theme.accent};
+    text-decoration: none;
+    cursor: pointer;
 `;
