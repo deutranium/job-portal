@@ -9,7 +9,8 @@ router.post("/register", async (req, res) => {
         const newRecruiter = new Recruiter({
             email: req.body.email,
             name: req.body.name,
-            contactNumber: req.body.contactNumber
+            contactNumber: req.body.contactNumber,
+            bio: req.body.bio
         });
 
         const savedRecruiter = await newRecruiter.save();
