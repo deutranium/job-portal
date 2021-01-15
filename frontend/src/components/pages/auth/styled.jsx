@@ -57,3 +57,7 @@ export const Link = styled.a`
     text-decoration: none;
     cursor: pointer;
 `;
+
+export const RadioGroup = styled(M.RadioGroup)`
+    margin-top: 30px;
+`;
