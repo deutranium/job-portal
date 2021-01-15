@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const auth = require('../middleware/auth');
-const ToDo = require('../models/todo.model');
+const Job = require('../models/job.model');
 
 router.post("/", async(req,res) => {
     try{
@@ -9,27 +9,27 @@ router.post("/", async(req,res) => {
         if(!title)
             return res.status(400).json({msg: "Not all fields have been entered"});
 
-        const newToDo = new ToDo({
+        const newJob = new Job({
             title,
             userId: req.user
         });
-        const savedToDo = await newToDo.save();
-        res.json(savedToDo);
+        const savedJob = await newJob.save();
+        res.json(savedJob);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 })
 
 router.get("/all", auth, async(req,res) => {
-    const todos = await ToDo.find({ userId: req.user});
-    res.json(todos);
+    const jobs = await Job.find({ userId: req.user});
+    res.json(jobs);
 })
 
 router.delete("/:id", auth, async(req,res) => {
-    const todo = await ToDo.findOne({userId: req.user, _id: req.params.id });
-    if(!todo)
+    const job = await Job.findOne({userId: req.user, _id: req.params.id });
+    if(!job)
         return res.status(400).json({msg: "No todo item found !!"});
-    const deletedItem = await ToDo.findByIdAndDelete(req.params.id);
+    const deletedItem = await Job.findByIdAndDelete(req.params.id);
     res.json(deletedItem);
 });
 module.exports = router;

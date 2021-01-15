@@ -7,10 +7,6 @@ import * as S from "./styled"
 import * as M from '@material-ui/core';
 import ErrorNotice from '../../misc/ErrorNotice';
 
-const tabs = {
-    
-}
-
 
 function Landing() {
 
@@ -35,11 +31,14 @@ function Landing() {
             });
             localStorage.setItem("auth-token", loginResponse.data.token);
             history.push("/");
+
         } catch(err) {
             err.response.data.msg && setError(err.response.data.msg)
         }
         
     };
+
+    
 
 
 

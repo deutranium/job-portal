@@ -31,6 +31,6 @@ mongoose.connect(
 // set up routes
 
 app.use("/users", require("./routes/users"));
-app.use("/todos", require("./routes/todo"));
+app.use("/job", require("./routes/job"));
 app.use("/applicant", require("./routes/applicant"));
 app.use("/recruiter", require("./routes/recruiter"));
