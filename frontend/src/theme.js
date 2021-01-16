@@ -3,12 +3,16 @@ import { createGlobalStyle } from "styled-components";
 export const Theme = {
     font: "'Sora', sans-serif",
     bgPrimary: "#FFFFFF",
-    bgBlue: "#d0d5ff",
-    bgRed: "#ffe0ef",
-    primary: "#18248a",
+    bgRed: "#fff3f9",
     border1: "#E5EAED",
-    accent: "#9b3f6c",
+    accent: "#1189ff",
     black: "#000000",
+    bgSecondary: "#090A0A",
+    lightAccent: "#fafafa",
+    lightSecondary: "#ececec",
+    secondary: "#090A0A",
+    dark1: "#888",
+    dark2: "#444"
 };
 
 export const GlobalStyle = createGlobalStyle`

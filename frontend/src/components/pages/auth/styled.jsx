@@ -12,7 +12,7 @@ export const Head = styled.div`
 `;
 
 export const LeftItem = styled(M.Grid)`
-    background-image: url("https://images.unsplash.com/photo-1603993097397-89c963e325c7");
+    background-image: url("https://images.unsplash.com/photo-1499750310107-5fef28a66643");
     background-position: center;
     background-size: cover;
     min-height: 100vh;
@@ -20,7 +20,7 @@ export const LeftItem = styled(M.Grid)`
 
 export const RightItem = styled(M.Grid)`
     padding: 200px 0 0 0;
-    background-color: ${(props) => props.theme.bgBlue};
+    background-color: ${(props) => props.theme.bgPrimary};
 `;
 
 export const Card = styled(M.Card)`
