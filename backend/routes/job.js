@@ -2,16 +2,26 @@ const router = require('express').Router();
 const auth = require('../middleware/auth');
 const Job = require('../models/job.model');
 
-router.post("/", async(req,res) => {
+router.post("/add", auth, async(req,res) => {
     try{
-        const { title } = req.body;
+        const { title, recruiterName, recruiterMail, maxApplicants, positions, dateOfPosting, deadline, skills, type, duration, salary, rating } = req.body;
 
-        if(!title)
+        if(!title || !maxApplicants || !positions || !deadline || !type || !duration || !salary)
             return res.status(400).json({msg: "Not all fields have been entered"});
 
         const newJob = new Job({
             title,
-            userId: req.user
+            recruiterName,
+            recruiterMail,
+            maxApplicants,
+            positions,
+            dateOfPosting,
+            deadline,
+            skills,
+            type,
+            duration,
+            salary,
+            rating
         });
         const savedJob = await newJob.save();
         res.json(savedJob);
@@ -21,7 +31,7 @@ router.post("/", async(req,res) => {
 })
 
 router.get("/all", auth, async(req,res) => {
-    const jobs = await Job.find({ userId: req.user});
+    const jobs = await Job.find();
     res.json(jobs);
 })
 

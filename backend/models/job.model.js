@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
-    title: { type: String, required: true},
-    recruiterName: { type: String, required: true},
+    title: {
+        type: String,
+        required: true
+    },
+    recruiterName: {
+        type: String,
+        required: true
+    },
     recruiterMail: {
         type: String,
         required: true,
@@ -15,13 +21,18 @@ const jobSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    date: {
+    dateOfPosting: {
+        type: Date,
+        required: true
+    },
+    deadline: {
         type: Date,
         required: true
     },
     skills: {
         type: Array,
-        required: true
+        required: true,
+        default: []
     },
     type: {
         type: String,
@@ -29,7 +40,8 @@ const jobSchema = new mongoose.Schema({
     },
     duration: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     salary: {
         type: Number,
