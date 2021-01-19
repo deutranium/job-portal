@@ -17,7 +17,7 @@ function Landing() {
     const [password, setPassword] = useState();
     const [error, setError] = useState();
 
-    const { setUserData } = useContext(UserContext);
+    const { changeUserData } = useContext(UserContext);
     const history = useHistory();
 
     const login = async (e) => {
@@ -25,15 +25,23 @@ function Landing() {
         try{
             const loginUser = {email, password};
             const loginResponse = await axios.post("http://localhost:5000/users/login", loginUser);
-            setUserData({
-                token: loginResponse.data.token,
-                user: loginResponse.data.user
-            });
+            // changeUserData({
+            //     token: loginResponse.data.token,
+            //     user: loginResponse.data.user
+            // });
+            changeUserData({
+                type: "LOGIN",
+                payload: {
+                  token: loginResponse.data.token,
+                  userRes: loginResponse.data.user     
+                }
+              })
             localStorage.setItem("auth-token", loginResponse.data.token);
             history.push("/");
 
         } catch(err) {
             err.response.data.msg && setError(err.response.data.msg)
+            // console.log("lol")
         }
         
     };
