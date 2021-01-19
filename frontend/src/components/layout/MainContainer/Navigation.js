@@ -4,7 +4,7 @@ import * as M from '@material-ui/core';
 import LineIcon from 'react-lineicons';
 
 // import UserContext from '../../../context/userContext';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 const navData = [
@@ -13,10 +13,12 @@ const navData = [
     }
 ]
 
-const MainContainer = ({ children }) => {
+const Navigation = () => {
 
     // const {userData} = useContext(UserContext);
-    // const history = useHistory();
+    const history = useHistory();
+
+    const logout = () => history.push("/logout");
 
     return (
         <S.MainNav>
@@ -46,10 +48,10 @@ const MainContainer = ({ children }) => {
             </S.NavItems>
             <S.Logout>
                 <LineIcon name="lock" />
-                <S.LogoutText>Logout</S.LogoutText>
+                <S.LogoutText onClick={logout}>Logout</S.LogoutText>
             </S.Logout>
         </S.MainNav>
     );
 };
 
-export default MainContainer;
+export default Navigation;

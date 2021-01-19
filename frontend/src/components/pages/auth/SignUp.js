@@ -8,7 +8,7 @@ import * as M from '@material-ui/core';
 import ErrorNotice from '../../misc/ErrorNotice';
 
 
-function Landing() {
+function SignUp() {
     const login = () => history.push("/login");
 
     const [email, setEmail] = useState();
@@ -22,15 +22,17 @@ function Landing() {
     const [contactNumber, setContactNumber] = useState();
     const [bio, setBio] = useState("");
 
-    const { setUserData } = useContext(UserContext);
+    const { userData, dispatch } = useContext(UserContext);
     const history = useHistory();
 
 
     const submit = async (e) => {
         e.preventDefault();
+        console.log(4)
 
         try {
             const newUser = { email, password, passwordCheck, name, category };
+            console.log(3)
             await axios.post("http://localhost:5000/users/register", newUser);
             if (category == "applicant"){
                 const newApplicant = {email, name}
@@ -42,17 +44,19 @@ function Landing() {
                 await axios.post("http://localhost:5000/recruiter/register", newRecruiter);
                 console.log("rec")
             }
+            console.log(2)
             const loginResponse = await axios.post("http://localhost:5000/users/login", {
                 email, password
             });
-            setUserData({
+            console.log(1)
+            dispatch({
                 token: loginResponse.data.token,
                 user: loginResponse.data.user
             });
             localStorage.setItem("auth-token", loginResponse.data.token);
             history.push("/");
         } catch (err) {
-            err.response.data.msg && setError(err.response.data.msg)
+            err && setError(err)
         }
 
     };
@@ -70,7 +74,8 @@ function Landing() {
                         <S.AccentText>
                             Sign Up
                         </S.AccentText>
-                        {error && <ErrorNotice>{error}</ErrorNotice>}
+                        {error && <ErrorNotice>error</ErrorNotice>}
+                        {console.log(error)}
 
                         <form onSubmit={submit}>
                             <S.Field id="standard-basic" label="Name" fullWidth required onChange={e => setName(e.target.value)} />
@@ -122,4 +127,4 @@ function Landing() {
     );
 }
 
-export default Landing;
+export default SignUp;

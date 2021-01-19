@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
+import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
 import axios from "axios";
 
 import { ThemeProvider } from "styled-components";
@@ -12,98 +12,110 @@ import Home from "./components/pages/Home";
 import UserContext from "./context/userContext";
 import "./App.css";
 import { MuiThemeProvider } from "@material-ui/core";
+import Logout from "./components/pages/auth/Logout";
 
-
+// initial state
 const initialState = {
-  token: undefined,
-  user: undefined,
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "LOGIN":
-      return {
-        ...state,
-        token: action.payload.token,
-        user: action.payload.userRes,
-      };
-    default:
-      return state;
-  }
+    auth: false,
+    token: null,
+    user: null,
 };
 
+// context to monitor user login states
+const ContextReducer = (state, action) => {
+    switch (action.type) {
+        case "LOGIN":
+            return {
+                ...state,
+                auth: true,
+                token: action.payload.token,
+                user: action.payload.userRes.data,
+            };
+        case "LOGOUT":
+            return {
+                ...state,
+                auth: false,
+                token: null,
+                user: null,
+            };
+    }
+};
 
+const App = () => {
+    const [userData, dispatch] = useReducer(ContextReducer, initialState);
 
-function App() {
-  const [userData, changeUserData] = React.useReducer(reducer, initialState);
+    const tokenMain = localStorage.getItem("auth-token");
 
-  // const [userData, setUserData] = useState({
-  //   token: undefined,
-  //   user: undefined,
-  // });
-
-  useEffect(() => {
     const checkLoggedIn = async () => {
-      let token = localStorage.getItem("auth-token");
-      if (token === null) {
-        localStorage.setItem("auth-token", "");
-        token = "";
-      }
-      const tokenResponse = await axios.post(
-        "http://localhost:5000/users/tokenIsValid",
-        null,
-        { headers: { "x-auth-token": token } }
-      );
-      if (tokenResponse.data) {
-        const userRes = await axios.get("http://localhost:5000/users/", {
-          headers: { "x-auth-token": token },
-        });
-        console.log(token);
-        console.log("[[[[[");
-        console.log(userRes);
-
-        // ERROR HEEEEEEEERRRRRRRRREEEEEEEEEE!!!!!!!!
-        changeUserData({
-          type: "LOGIN",
-          payload: {
-            token,
-            userRes            
-          }
-        })
-        // setUserData({
-        //   token,
-        //   user: userRes.data,
-        // });
-        // console.log("1111111");
-        // console.log(userData)
-      }
+        let token = localStorage.getItem("auth-token");
+        const tokenResponse = await axios.post(
+            "http://localhost:5000/users/tokenIsValid",
+            null,
+            { headers: { "x-auth-token": token } }
+        );
+        if (tokenResponse.data) {
+            const userRes = await axios.get("http://localhost:5000/users/", {
+                headers: { "x-auth-token": token },
+            });
+            dispatch({
+                type: "LOGIN",
+                payload: {
+                    token,
+                    userRes,
+                },
+            });
+        } else {
+            dispatch({
+                type: "LOGOUT",
+            });
+        }
     };
 
-    checkLoggedIn();
 
-    console.log("--------");
-    console.log(userData);
-  }, []);
+    useEffect(() => {
+        window.addEventListener("storage", (e) => {
+            try {
+                checkLoggedIn();
+            } catch {
+                dispatch({
+                    type: "LOGOUT",
+                });
+            }
+        });
+    }, []);
+    
+    useEffect(() => {
+        if (tokenMain) {
+            checkLoggedIn()
+        }
+        else {
+            dispatch({
+                type: "LOGOUT",
+            });
+        }
+    }, [tokenMain])
 
-  return (
-    <ThemeProvider theme={Theme}>
-      <MuiThemeProvider theme={T.theme}>
-        <GlobalStyle />
-        <BrowserRouter>
-          <UserContext.Provider value={{ userData, changeUserData }}>
-            {/* <Landing /> */}
-            {/* <Header /> */}
-            <Switch>
-                {console.log(userData)}
-              <Route exact path="/" component={Home} />
-              <Route path="/register" component={SignUp} />
-              <Route path="/login" component={Landing} />
-            </Switch>
-          </UserContext.Provider>
-        </BrowserRouter>
-      </MuiThemeProvider>
-    </ThemeProvider>
-  );
-}
+    return (
+        <ThemeProvider theme={Theme}>
+            <MuiThemeProvider theme={T.theme}>
+                <GlobalStyle />
+                <BrowserRouter>
+                    <UserContext.Provider value={{ userData, dispatch }}>
+                        {/* <Landing /> */}
+                        {/* <Header /> */}
+                        <Switch>
+                            {console.log("App.......")}
+                            {console.log(userData)}
+                            <Route exact path="/" component={Home} />
+                            <Route path="/register" component={SignUp} />
+                            <Route path="/login" component={Landing} />
+                            <Route path="/logout" component={Logout} />
+                        </Switch>
+                    </UserContext.Provider>
+                </BrowserRouter>
+            </MuiThemeProvider>
+        </ThemeProvider>
+    );
+};
 
 export default App;

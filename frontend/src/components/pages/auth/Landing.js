@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../../../context/userContext"
-// import AuthOptions from '../../auth/AuthOptions';
 import * as S from "./styled"
 import * as M from '@material-ui/core';
 import ErrorNotice from '../../misc/ErrorNotice';
@@ -17,36 +16,38 @@ function Landing() {
     const [password, setPassword] = useState();
     const [error, setError] = useState();
 
-    const { changeUserData } = useContext(UserContext);
+    const { userData, dispatch } = useContext(UserContext);
     const history = useHistory();
 
     const login = async (e) => {
         e.preventDefault();
-        try{
-            const loginUser = {email, password};
+        try {
+            const loginUser = { email, password };
             const loginResponse = await axios.post("http://localhost:5000/users/login", loginUser);
             // changeUserData({
             //     token: loginResponse.data.token,
             //     user: loginResponse.data.user
             // });
-            changeUserData({
+            console.log(loginResponse);
+            console.log("************")
+            dispatch({
                 type: "LOGIN",
                 payload: {
-                  token: loginResponse.data.token,
-                  userRes: loginResponse.data.user     
+                    token: loginResponse.data.token,
+                    userRes: loginResponse.data.user
                 }
-              })
+            })
             localStorage.setItem("auth-token", loginResponse.data.token);
             history.push("/");
 
-        } catch(err) {
+        } catch (err) {
             err.response.data.msg && setError(err.response.data.msg)
             // console.log("lol")
         }
-        
+
     };
 
-    
+
 
 
 
