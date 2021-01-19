@@ -28,11 +28,9 @@ function SignUp() {
 
     const submit = async (e) => {
         e.preventDefault();
-        console.log(4)
 
         try {
             const newUser = { email, password, passwordCheck, name, category };
-            console.log(3)
             await axios.post("http://localhost:5000/users/register", newUser);
             if (category == "applicant"){
                 const newApplicant = {email, name}
@@ -44,11 +42,9 @@ function SignUp() {
                 await axios.post("http://localhost:5000/recruiter/register", newRecruiter);
                 console.log("rec")
             }
-            console.log(2)
             const loginResponse = await axios.post("http://localhost:5000/users/login", {
                 email, password
             });
-            console.log(1)
             dispatch({
                 token: loginResponse.data.token,
                 user: loginResponse.data.user
@@ -56,7 +52,7 @@ function SignUp() {
             localStorage.setItem("auth-token", loginResponse.data.token);
             history.push("/");
         } catch (err) {
-            err && setError(err)
+            err && setError(err.response.data.msg)
         }
 
     };
@@ -74,8 +70,7 @@ function SignUp() {
                         <S.AccentText>
                             Sign Up
                         </S.AccentText>
-                        {error && <ErrorNotice>error</ErrorNotice>}
-                        {console.log(error)}
+                        {error && <ErrorNotice>{error}</ErrorNotice>}
 
                         <form onSubmit={submit}>
                             <S.Field id="standard-basic" label="Name" fullWidth required onChange={e => setName(e.target.value)} />

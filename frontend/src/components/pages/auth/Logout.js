@@ -6,7 +6,6 @@ const Logout = () => {
 
     const {userData, dispatch} = useContext(UserContext);
     const history = useHistory();
-    
     useEffect(() => {
         localStorage.setItem("auth-token", "");
         dispatch({

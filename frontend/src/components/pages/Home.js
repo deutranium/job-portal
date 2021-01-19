@@ -17,9 +17,6 @@ const Home = () => {
     // }, [userData.user])
     return (
         <div>
-            {console.log(userData)}
-            {console.log("/////////////")}
-            
             {userData.user ? (
                 <MainContainer>
                     <h1>Welcome {userData.user.name}</h1>
