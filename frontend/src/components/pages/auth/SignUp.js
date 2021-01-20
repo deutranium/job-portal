@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import UserContext from "../../../context/userContext"
+import UserContext from "../../../context/UserContext"
 // import AuthOptions from '../../auth/AuthOptions';
 import * as S from "./styled"
 import * as M from '@material-ui/core';
@@ -70,7 +70,7 @@ function SignUp() {
                         <S.AccentText>
                             Sign Up
                         </S.AccentText>
-                        {error && <ErrorNotice>{error}</ErrorNotice>}
+                        {error && <ErrorNotice>{String(error)}</ErrorNotice>}
 
                         <form onSubmit={submit}>
                             <S.Field id="standard-basic" label="Name" fullWidth required onChange={e => setName(e.target.value)} />

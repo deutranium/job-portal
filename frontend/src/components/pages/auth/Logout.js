@@ -1,18 +1,18 @@
 import React, { useEffect, useContext, useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import UserContext from '../../../context/userContext';
+import UserContext from '../../../context/UserContext';
 
 const Logout = () => {
 
-    const {userData, dispatch} = useContext(UserContext);
-    const history = useHistory();
-    useEffect(() => {
-        localStorage.setItem("auth-token", "");
-        dispatch({
-            type: "LOGOUT",
-        });
-        history.push("/")
-    })
+    // const {userData, dispatch} = useContext(UserContext);
+    // const history = useHistory();
+    // // useEffect(() => {
+    //     localStorage.setItem("auth-token", "");
+    //     dispatch({
+    //         type: "LOGOUT",
+    //     });
+    //     history.push("/")
+    // // })
     return (
         <div>
             Logging you out...

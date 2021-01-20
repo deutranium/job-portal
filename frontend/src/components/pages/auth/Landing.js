@@ -1,13 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import UserContext from "../../../context/userContext"
+import UserContext from "../../../context/UserContext"
 import * as S from "./styled"
 import * as M from '@material-ui/core';
 import ErrorNotice from '../../misc/ErrorNotice';
 
 
 function Landing() {
+
+    const { data, setData } = useContext(UserContext);
 
     const register = () => history.push("/register");
 
@@ -29,19 +31,24 @@ function Landing() {
             //     user: loginResponse.data.user
             // });
             console.log(loginResponse);
-            console.log("************")
-            dispatch({
-                type: "LOGIN",
-                payload: {
-                    token: loginResponse.data.token,
-                    userRes: loginResponse.data.user
-                }
-            })
+            // console.log("************")
+            // dispatch({
+            //     type: "LOGIN",
+            //     payload: {
+            //         token: loginResponse.data.token,
+            //         userRes: loginResponse.data.user
+            //     }
+            // })
             localStorage.setItem("auth-token", loginResponse.data.token);
+            localStorage.setItem("auth", true);
+            setData({
+                auth: true,
+                token: loginResponse.data.token
+            })
             history.push("/");
 
         } catch (err) {
-            err.response.data.msg && setError(err.response.data.msg)
+            err && setError(err)
             // console.log("lol")
         }
 
