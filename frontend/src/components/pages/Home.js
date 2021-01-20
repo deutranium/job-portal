@@ -7,6 +7,7 @@ import axios from "axios";
 
 
 const Home = () => {
+    const history = useHistory();
     const { data, setData } = useContext(UserContext);
 
     // console.log(UserContext);
@@ -48,9 +49,13 @@ const Home = () => {
     //     console.log("1111111111")
     //     // checkPaths()
     // }, [userData.user])
+
+    if(!data.auth){
+        history.push("/login")
+    }
     return (
         <div>
-            {data.auth ? (
+            {data.auth == "AUTHENTICATED" ? (
                 <MainContainer>
                     <h1>Welcome {data.token}</h1>
                 </MainContainer>

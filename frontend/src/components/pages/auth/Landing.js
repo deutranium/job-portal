@@ -39,11 +39,12 @@ function Landing() {
             //         userRes: loginResponse.data.user
             //     }
             // })
-            localStorage.setItem("auth-token", loginResponse.data.token);
-            localStorage.setItem("auth", true);
+            // localStorage.setItem("auth-token", loginResponse.data.token);
+            localStorage.setItem("auth", "AUTHENTICATED");
             setData({
-                auth: true,
-                token: loginResponse.data.token
+                auth: "AUTHENTICATED",
+                token: loginResponse.data.token,
+                user: loginResponse.data.user
             })
             history.push("/");
 

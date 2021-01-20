@@ -22,7 +22,7 @@ function SignUp() {
     const [contactNumber, setContactNumber] = useState();
     const [bio, setBio] = useState("");
 
-    const { userData, dispatch } = useContext(UserContext);
+    const { data, setData } = useContext(UserContext);
     const history = useHistory();
 
 
@@ -45,10 +45,11 @@ function SignUp() {
             const loginResponse = await axios.post("http://localhost:5000/users/login", {
                 email, password
             });
-            dispatch({
+            setData({
+                auth: "AUTHENTICATED",
                 token: loginResponse.data.token,
                 user: loginResponse.data.user
-            });
+            })
             localStorage.setItem("auth-token", loginResponse.data.token);
             history.push("/");
         } catch (err) {

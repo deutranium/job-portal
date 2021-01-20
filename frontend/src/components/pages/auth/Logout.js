@@ -4,15 +4,18 @@ import UserContext from '../../../context/UserContext';
 
 const Logout = () => {
 
-    // const {userData, dispatch} = useContext(UserContext);
-    // const history = useHistory();
-    // // useEffect(() => {
-    //     localStorage.setItem("auth-token", "");
-    //     dispatch({
-    //         type: "LOGOUT",
-    //     });
-    //     history.push("/")
-    // // })
+    const {data, setData} = useContext(UserContext);
+    const history = useHistory();
+    // useEffect(() => {
+        localStorage.setItem("auth", "UNAUTHENTICATED");
+        console.log(localStorage.getItem("auth"))
+        setData({
+            auth: "UNAUTHENTICATED",
+            token: null,
+            user: null
+        })
+        history.push("/")
+    // })
     return (
         <div>
             Logging you out...

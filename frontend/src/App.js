@@ -17,8 +17,9 @@ import Logout from "./components/pages/auth/Logout";
 const previousState = localStorage.getItem("auth");
 
 const initialState = {
-    auth: false || previousState,
-    token: "lol"
+    auth: previousState ? previousState : "UNAUTHENTICATED",
+    token: null,
+    user: null
 }
 
 const App = () => {
