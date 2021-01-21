@@ -1,20 +1,20 @@
 .react-tabs__tab {
-    font-family: Sora;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    text-align: center;
-    padding: 12px 24px 12px 24px;
-    box-sizing: border-box;
-    border-radius: 0;
+	font-family: Sora;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 14px;
+	text-align: center;
+	padding: 12px 24px 12px 24px;
+	box-sizing: border-box;
+	border-radius: 0;
 }
 
 .react-tabs__tab--selected {
-    border: 0;
-    font-weight: 700;
+	border: 0;
+	font-weight: 700;
 }
 
 .react-tabs__tab-list {
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--white);
+	margin-bottom: 20px;
+	border-bottom: 1px solid var(--white);
 }
