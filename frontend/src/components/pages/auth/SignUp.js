@@ -50,7 +50,11 @@ function SignUp() {
                 token: loginResponse.data.token,
                 user: loginResponse.data.user
             })
-            localStorage.setItem("auth-token", loginResponse.data.token);
+            
+            localStorage.setItem("auth", "AUTHENTICATED");
+            localStorage.setItem("token", loginResponse.data.token);
+            localStorage.setItem("user_id", loginResponse.data.user.id);
+            localStorage.setItem("user_name", loginResponse.data.user.name);
             history.push("/");
         } catch (err) {
             err && setError(err.response.data.msg)

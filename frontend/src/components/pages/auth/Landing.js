@@ -26,21 +26,11 @@ function Landing() {
         try {
             const loginUser = { email, password };
             const loginResponse = await axios.post("http://localhost:5000/users/login", loginUser);
-            // changeUserData({
-            //     token: loginResponse.data.token,
-            //     user: loginResponse.data.user
-            // });
-            console.log(loginResponse);
-            // console.log("************")
-            // dispatch({
-            //     type: "LOGIN",
-            //     payload: {
-            //         token: loginResponse.data.token,
-            //         userRes: loginResponse.data.user
-            //     }
-            // })
-            // localStorage.setItem("auth-token", loginResponse.data.token);
             localStorage.setItem("auth", "AUTHENTICATED");
+            localStorage.setItem("token", loginResponse.data.token);
+            localStorage.setItem("user_id", loginResponse.data.user.id);
+            localStorage.setItem("user_name", loginResponse.data.user.name);
+            
             setData({
                 auth: "AUTHENTICATED",
                 token: loginResponse.data.token,
@@ -50,7 +40,6 @@ function Landing() {
 
         } catch (err) {
             err && setError(err)
-            // console.log("lol")
         }
 
     };

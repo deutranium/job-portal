@@ -14,16 +14,25 @@ import "./App.css";
 import { MuiThemeProvider } from "@material-ui/core";
 import Logout from "./components/pages/auth/Logout";
 
-const previousState = localStorage.getItem("auth");
+const previousState = {
+    auth: localStorage.getItem("auth"),
+    token: localStorage.getItem("token"),
+    user: {
+        id: localStorage.getItem("user_id"),
+        name: localStorage.getItem("user_name"),
+    }
+}
 
 const initialState = {
-    auth: previousState ? previousState : "UNAUTHENTICATED",
-    token: null,
-    user: null
+    auth: previousState.auth ? previousState.auth : "UNAUTHENTICATED",
+    token: null || previousState.token,
+    user: null || previousState.user
 }
 
 const App = () => {
     const [data, setData] = useState(initialState);
+    console.log(data)
+    console.log("bejvlkndc")
 
     const providerData = useMemo(() => ({ data, setData }), [data, setData])
 
