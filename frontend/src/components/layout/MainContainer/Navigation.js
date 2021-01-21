@@ -4,55 +4,47 @@ import LineIcon from "react-lineicons";
 
 import { useHistory } from "react-router-dom";
 
-// const navData = [
-// 	{
-// 		img: "home",
-// 		text: "Home",
-// 		url: "/",
-// 	},
-// ];
+const Navigation = (props) => {
+    // const {userData} = useContext(UserContext);
+    const history = useHistory();
 
-const Navigation = () => {
-	// const {userData} = useContext(UserContext);
-	const history = useHistory();
+    const logout = () => history.push("/logout");
 
-	const logout = () => history.push("/logout");
+    return (
+        <S.MainNav>
+            <S.Profile>
+                {/* <S.ImgDiv> */}
 
-	return (
-		<S.MainNav>
-			<S.Profile>
-				{/* <S.ImgDiv> */}
+                {/* <S.ProfileImg src={require("./assets/panda.svg")} /> */}
+                <S.Avatar
+                    alt="Cindy Baker"
+                    src={require("./assets/panda.svg")}
+                />
+                {/* </S.ImgDiv> */}
+                {/* {userData.user} */}
+                <S.NameDiv>Lorem Ipsum</S.NameDiv>
+                <S.EmailDiv>applicant@bo.nd</S.EmailDiv>
+            </S.Profile>
 
-				{/* <S.ProfileImg src={require("./assets/panda.svg")} /> */}
-				<S.Avatar
-					alt="Cindy Baker"
-					src={require("./assets/panda.svg")}
-				/>
-				{/* </S.ImgDiv> */}
-				{/* {userData.user} */}
-				<S.NameDiv>Lorem Ipsum</S.NameDiv>
-				<S.EmailDiv>applicant@bo.nd</S.EmailDiv>
-			</S.Profile>
-			<S.NavItems>
-				<S.NavItem active>
-					<LineIcon name="home" />
-					<S.NavItemText>Home</S.NavItemText>
-				</S.NavItem>
-				<S.NavItem>
-					<LineIcon name="list" />
-					<S.NavItemText>My Applications</S.NavItemText>
-				</S.NavItem>
-				<S.NavItem>
-					<LineIcon name="heart" />
-					<S.NavItemText>Profile</S.NavItemText>
-				</S.NavItem>
-			</S.NavItems>
-			<S.Logout>
-				<LineIcon name="lock" />
-				<S.LogoutText onClick={logout}>Logout</S.LogoutText>
-			</S.Logout>
-		</S.MainNav>
-	);
+
+            <S.NavItems>
+                {
+                   props.data.map((item, index) => 
+                   <S.NavItem active={item.active}>
+                    <LineIcon name={item.img} />
+                    <S.NavItemText>{item.text}</S.NavItemText>
+                </S.NavItem>
+                   )
+                }
+            </S.NavItems>
+
+            
+            <S.Logout>
+                <LineIcon name="lock" />
+                <S.LogoutText onClick={logout}>Logout</S.LogoutText>
+            </S.Logout>
+        </S.MainNav>
+    );
 };
 
 export default Navigation;

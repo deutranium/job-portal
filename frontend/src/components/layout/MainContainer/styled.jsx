@@ -79,5 +79,6 @@ export const Logout = styled.div`
 `;
 
 export const LogoutText = styled.div`
-	padding: 0 20px;
+    padding: 0 20px;
+    cursor: pointer
 `;
