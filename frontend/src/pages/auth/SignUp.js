@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import UserContext from "../../../context/UserContext";
+import UserContext from "../../context/UserContext";
 // import AuthOptions from '../../auth/AuthOptions';
 import * as S from "./styled";
 import * as M from "@material-ui/core";
-import ErrorNotice from "../../misc/ErrorNotice";
+import ErrorNotice from "../../components/misc/ErrorNotice";
 
 function SignUp() {
 	const login = () => history.push("/login");
@@ -34,7 +34,7 @@ function SignUp() {
 			await axios.post("http://localhost:5000/users/register", newUser);
 
 			// category specific registration
-			if (category == "applicant") {
+			if (category === "applicant") {
 				const newApplicant = { email, name };
 				await axios.post(
 					"http://localhost:5000/applicant/register",
@@ -182,7 +182,7 @@ function SignUp() {
 								</M.Grid>
 							</S.RadioGroup>
 
-							{category == "recruiter" && (
+							{category === "recruiter" && (
 								<>
 									<S.Field
 										id="standard-basic"

@@ -1,20 +1,19 @@
-import React, { useEffect, useContext, useLayoutEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
-import UserContext from "../../context/UserContext";
-import MainContainer from "../layout/MainContainer/MainContainer";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import UserContext from "../context/UserContext";
+import MainContainer from "../components/layout/MainContainer/MainContainer";
 import Landing from "./auth/Landing";
-import axios from "axios";
 
 const Home = () => {
 	const history = useHistory();
-	const { data, setData } = useContext(UserContext);
+	const { data } = useContext(UserContext);
 
 	if (!data.auth) {
 		history.push("/login");
 	}
 	return (
 		<div>
-			{data.auth == "AUTHENTICATED" ? (
+			{data.auth === "AUTHENTICATED" ? (
 				<MainContainer>
 					{console.log(data)}
 					{console.log("hehehe")}

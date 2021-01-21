@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import UserContext from "../../../context/UserContext";
+import UserContext from "../../context/UserContext";
 import * as S from "./styled";
 import * as M from "@material-ui/core";
-import ErrorNotice from "../../misc/ErrorNotice";
+import ErrorNotice from "../../components/misc/ErrorNotice";
 
 function Landing() {
 	const { data, setData } = useContext(UserContext);
@@ -15,8 +15,6 @@ function Landing() {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const [error, setError] = useState();
-
-	const { userData, dispatch } = useContext(UserContext);
 	const history = useHistory();
 
 	const login = async (e) => {
@@ -82,19 +80,17 @@ function Landing() {
 						{error && <ErrorNotice>{error}</ErrorNotice>}
 						<form onSubmit={login}>
 							<S.Field
-								id="standard-basic"
+								id="standard-basic email"
 								label="Email"
 								fullWidth
 								type="email"
-								id="email"
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 							<S.Field
-								id="standard-basic"
+								id="standard-basic password"
 								type="password"
 								label="Password"
 								fullWidth
-								id="password"
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 							<S.Button

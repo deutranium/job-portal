@@ -1,18 +1,16 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import * as S from "./styled";
-import * as M from "@material-ui/core";
 import LineIcon from "react-lineicons";
 
-// import UserContext from '../../../context/userContext';
 import { useHistory } from "react-router-dom";
 
-const navData = [
-	{
-		img: "home",
-		text: "Home",
-		url: "/",
-	},
-];
+// const navData = [
+// 	{
+// 		img: "home",
+// 		text: "Home",
+// 		url: "/",
+// 	},
+// ];
 
 const Navigation = () => {
 	// const {userData} = useContext(UserContext);
