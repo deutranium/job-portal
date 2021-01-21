@@ -97,7 +97,7 @@ function SignUp() {
 
 			history.push("/");
 		} catch (err) {
-			err && setError(err.response.data.msg);
+			err.response.data.msg && setError(err.response.data.msg);
 		}
 	};
 

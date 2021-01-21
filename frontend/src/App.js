@@ -31,8 +31,6 @@ const initialState = {
 
 const App = () => {
     const [data, setData] = useState(initialState);
-    console.log(data);
-    console.log("bejvlkndc");
 
     const providerData = useMemo(() => ({ data, setData }), [data, setData]);
 

@@ -15,8 +15,6 @@ const Home = () => {
 		<div>
 			{data.auth === "AUTHENTICATED" ? (
 				<MainContainer>
-					{console.log(data)}
-					{console.log("hehehe")}
 					<h1>Welcome {data.user.name}</h1>
 				</MainContainer>
 			) : (

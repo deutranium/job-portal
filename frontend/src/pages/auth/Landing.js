@@ -15,6 +15,7 @@ function Landing() {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const [error, setError] = useState();
+
 	const history = useHistory();
 
 	const login = async (e) => {
@@ -29,10 +30,10 @@ function Landing() {
 			);
 
 			// get user info
-			const userResponse = await axios
+			await axios
 				.get("http://localhost:5000/users/", {
 					headers: {
-						"x-auth-token": data.token,
+						"x-auth-token": loginResponse.data.token,
 					},
 				})
 				.then((res) => {
@@ -43,7 +44,8 @@ function Landing() {
 				})
 				.catch((err) => {
 					console.log(err);
-				});
+                });
+                
 
 			// set context data
 			setData({
@@ -51,7 +53,7 @@ function Landing() {
 				auth: "AUTHENTICATED",
 				token: loginResponse.data.token,
 				user: loginResponse.data.user,
-				userData: userResponse.data,
+				userData: data.userData,
 			});
 
 			// set local storage values
@@ -66,7 +68,8 @@ function Landing() {
 
 			history.push("/");
 		} catch (err) {
-			err && setError(err);
+            console.log(err)
+			err.response.data.msg && setError(err.response.data.msg);
 		}
 	};
 
