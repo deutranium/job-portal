@@ -82,7 +82,7 @@ function SignUp() {
 				auth: "AUTHENTICATED",
 				token: loginResponse.data.token,
 				user: loginResponse.data.user,
-				userData: userResponse.data,
+				userData: data.userData
 			});
 
 			// set values in local storage
