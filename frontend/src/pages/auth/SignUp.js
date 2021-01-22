@@ -2,10 +2,10 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
-// import AuthOptions from '../../auth/AuthOptions';
 import * as S from "./styled";
 import * as M from "@material-ui/core";
-import ErrorNotice from "../../components/misc/ErrorNotice";
+import * as L from "@material-ui/lab";
+
 
 function SignUp() {
 	const login = () => history.push("/login");
@@ -22,7 +22,10 @@ function SignUp() {
 	const [bio, setBio] = useState("");
 
 	const { data, setData } = useContext(UserContext);
-	const history = useHistory();
+    const history = useHistory();
+    
+    if(data.auth == "AUTHENTICATED")
+        history.push("/")
 
 	const submit = async (e) => {
 		e.preventDefault();
@@ -109,7 +112,6 @@ function SignUp() {
 					<M.CardContent>
 						{/* Sign Up */}
 						<S.AccentText>Sign Up</S.AccentText>
-						{error && <ErrorNotice>{String(error)}</ErrorNotice>}
 						<form onSubmit={submit}>
 							<S.Field
 								id="standard-basic"
@@ -117,7 +119,7 @@ function SignUp() {
 								fullWidth
 								required
 								onChange={(e) => setName(e.target.value)}
-							/>
+                                />
 							<S.Field
 								id="standard-basic"
 								label="Email"
@@ -125,7 +127,7 @@ function SignUp() {
 								fullWidth
 								required
 								onChange={(e) => setEmail(e.target.value)}
-							/>
+                                />
 							<M.Grid container spacing={1}>
 								<M.Grid item md={6}>
 									<S.Field
@@ -137,7 +139,7 @@ function SignUp() {
 										onChange={(e) =>
 											setPassword(e.target.value)
 										}
-									/>
+                                        />
 								</M.Grid>
 								<M.Grid item md={6}>
 									<S.Field
@@ -149,7 +151,7 @@ function SignUp() {
 										onChange={(e) =>
 											setPasswordCheck(e.target.value)
 										}
-									/>
+                                        />
 								</M.Grid>
 							</M.Grid>
 
@@ -159,31 +161,31 @@ function SignUp() {
 								defaultValue="applicant"
 								value={category}
 								onChange={(e) => setCategory(e.target.value)}
-							>
+                                >
 								<M.Grid container>
 									<M.Grid item md={6} sm={6} xs={12}>
 										<M.FormControlLabel
 											value="applicant"
 											control={
-												<M.Radio color="primary" />
+                                                <M.Radio color="primary" />
 											}
 											label="I'm an Applicant"
-										/>
+                                            />
 									</M.Grid>
 									<M.Grid item md={6} sm={6} xs={12}>
 										<M.FormControlLabel
 											value="recruiter"
 											control={
-												<M.Radio color="primary" />
+                                                <M.Radio color="primary" />
 											}
 											label="I'm a Recruiter"
-										/>
+                                            />
 									</M.Grid>
 								</M.Grid>
 							</S.RadioGroup>
 
 							{category === "recruiter" && (
-								<>
+                                <>
 									<S.Field
 										id="standard-basic"
 										label="Contact Number"
@@ -193,21 +195,22 @@ function SignUp() {
 										onChange={(e) =>
 											setContactNumber(e.target.value)
 										}
-									/>
+                                        />
 									<S.Field
 										id="standard-basic"
 										label="Bio (upto 250 words)"
 										multiline
 										fullWidth
 										onChange={(e) => setBio(e.target.value)}
-									/>
+                                        />
 								</>
 							)}
+                            {error && <L.Alert severity="error">{error}</L.Alert>}
 							<S.Button
 								variant="contained"
 								color="primary"
 								type="submit"
-							>
+                                >
 								Sign up
 							</S.Button>
 						</form>

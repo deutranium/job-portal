@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import axios from "axios";
 import { ThemeProvider } from "styled-components";
 import { Theme, GlobalStyle } from "./theme";
 import * as T from "./muiTheme";
@@ -37,34 +36,12 @@ const App = () => {
 
     const providerData = useMemo(() => ({ data, setData }), [data, setData]);
 
-    useEffect(() => {
-        const userInfo = async () => {
-            await axios
-                .get("http://localhost:5000/users/", {
-                    headers: {
-                        "x-auth-token": previousState.token,
-                    },
-                })
-                .then((res) => {
-                    setData({
-                        ...data,
-                        userData: res.data
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
-        userInfo()
-    }, [])
-
     return (
 
         <ThemeProvider theme={Theme}>
             <MuiThemeProvider theme={T.theme}>
                 <GlobalStyle />
                 <BrowserRouter>
-            {data.userData ? (
                     <UserContext.Provider value={providerData}>
 
                         <Route exact path="/" component={Home} />
@@ -74,7 +51,6 @@ const App = () => {
                         <Route path="/profile" component={Profile} />
 
                     </UserContext.Provider>
-            ) : (<h1>loading...</h1>)}
                 </BrowserRouter>
             </MuiThemeProvider>
         </ThemeProvider>

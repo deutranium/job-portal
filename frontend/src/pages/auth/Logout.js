@@ -7,6 +7,9 @@ const Logout = () => {
 	const history = useHistory();
 
     localStorage.setItem("auth", "UNAUTHENTICATED");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("user_name");
 	setData({
 		auth: "UNAUTHENTICATED",
 		token: null,

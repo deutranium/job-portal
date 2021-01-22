@@ -8,17 +8,34 @@ import * as I from '@material-ui/icons';
 
 const Logout = () => {
     const { data, setData } = useContext(UserContext);
-
+    console.log(data)
 
     return (
         <MainContainer>
+
+            <S.Header>Personal</S.Header>
             <M.TextField
                 id="input-with-icon-textfield"
-                label="TextField"
+                label="Name"
+                defaultValue={data.userData.name}
+                variant="outlined" 
                 InputProps={{
                     startAdornment: (
                         <M.InputAdornment position="start">
                             <I.AccountCircle />
+                        </M.InputAdornment>
+                    ),
+                }}
+            />
+            <M.TextField
+                id="input-with-icon-textfield"
+                label="Email"
+                defaultValue={data.userData.email}
+                variant="outlined" 
+                InputProps={{
+                    startAdornment: (
+                        <M.InputAdornment position="start">
+                            <I.Email />
                         </M.InputAdornment>
                     ),
                 }}
