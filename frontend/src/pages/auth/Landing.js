@@ -9,6 +9,7 @@ import ErrorNotice from "../../components/misc/ErrorNotice";
 function Landing() {
 	const { data, setData } = useContext(UserContext);
 
+	const history = useHistory();
 	const register = () => history.push("/register");
 
 	// Login
@@ -16,7 +17,6 @@ function Landing() {
 	const [password, setPassword] = useState();
 	const [error, setError] = useState();
 
-	const history = useHistory();
 
 	const login = async (e) => {
 		e.preventDefault();
@@ -38,23 +38,13 @@ function Landing() {
 				})
 				.then((res) => {
 					setData({
-						...data,
-						userData: res.data,
-					});
+                        ...data,
+                        userData: res.data
+                    });
 				})
 				.catch((err) => {
 					console.log(err);
                 });
-                
-
-			// set context data
-			setData({
-				...data,
-				auth: "AUTHENTICATED",
-				token: loginResponse.data.token,
-				user: loginResponse.data.user,
-				userData: data.userData,
-			});
 
 			// set local storage values
 			localStorage.setItem("auth", "AUTHENTICATED");

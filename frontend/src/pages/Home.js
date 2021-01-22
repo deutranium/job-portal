@@ -11,6 +11,9 @@ const Home = () => {
     if (!data.auth) {
         history.push("/login");
     }
+
+    console.log(data)
+
     return (
         <div>
             {data.auth === "AUTHENTICATED" ? (

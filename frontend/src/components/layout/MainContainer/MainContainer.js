@@ -62,7 +62,7 @@ const MainContainer = ({ children }) => {
 
 
                 {/* job listings */}
-                <JobTable />
+                {/* <JobTable /> */}
             </S.Content>
         </div>
     );

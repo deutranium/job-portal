@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as S from "./styled";
 import LineIcon from "react-lineicons";
-
 import { useHistory } from "react-router-dom";
 
+import UserContext from "./../../../context/UserContext";
+
+
 const Navigation = (props) => {
-    // const {userData} = useContext(UserContext);
+    const { data, setData } = useContext(UserContext);
     const history = useHistory();
 
     const logout = () => history.push("/logout");
@@ -22,23 +24,22 @@ const Navigation = (props) => {
                 />
                 {/* </S.ImgDiv> */}
                 {/* {userData.user} */}
-                <S.NameDiv>Lorem Ipsum</S.NameDiv>
-                <S.EmailDiv>applicant@bo.nd</S.EmailDiv>
+                <S.NameDiv>{data.user.name}</S.NameDiv>
             </S.Profile>
 
 
             <S.NavItems>
                 {
-                   props.data.map((item, index) => 
-                   <S.NavItem active={item.active}>
-                    <LineIcon name={item.img} />
-                    <S.NavItemText>{item.text}</S.NavItemText>
-                </S.NavItem>
-                   )
+                    props.data.map((item, index) =>
+                        <S.NavItem active={item.active} onClick={() => history.push(item.url)}>
+                            <LineIcon name={item.img} />
+                            <S.NavItemText>{item.text}</S.NavItemText>
+                        </S.NavItem>
+                    )
                 }
             </S.NavItems>
 
-            
+
             <S.Logout>
                 <LineIcon name="lock" />
                 <S.LogoutText onClick={logout}>Logout</S.LogoutText>

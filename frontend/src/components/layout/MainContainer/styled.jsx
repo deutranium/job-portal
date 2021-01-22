@@ -56,14 +56,15 @@ export const NavItems = styled.div`
 
 export const NavItem = styled.div`
 	color: ${(props) =>
-		props.active ? props.theme.lightAccent : props.theme.lightSecondary};
+        props.active ? props.theme.lightAccent : props.theme.lightSecondary};
 	display: flex;
 	align-items: center;
 	font-weight: ${(props) => (props.active ? 600 : 300)};
 	font-size: 16px;
 	padding: 15px 30px;
 	border-left: 5px solid
-		${(props) => (props.active ? "white" : "transparent")};
+        ${(props) => (props.active ? "white" : "transparent")};
+    cursor: pointer;
 `;
 
 export const NavItemText = styled.div`
@@ -80,5 +81,5 @@ export const Logout = styled.div`
 
 export const LogoutText = styled.div`
     padding: 0 20px;
-    cursor: pointer
+    cursor: pointer;
 `;
