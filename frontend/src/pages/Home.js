@@ -13,7 +13,6 @@ const Home = () => {
         history.push("/login");
     }
 
-    console.log(data)
 
     useEffect(() => {
         const userInfo = async () => {

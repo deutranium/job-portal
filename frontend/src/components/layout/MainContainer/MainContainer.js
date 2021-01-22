@@ -48,22 +48,28 @@ const MainContainer = ({ children }) => {
 
     return (
         <div>
+            {data.userData ? (
+                <>
+                    {data.user.category === "applicant" ? (
+                        <Navigation data={applicantNav} />
+                    ) : (
+                            <Navigation data={recruiterNav} />
+                        )}
 
-            {data.user.category === "applicant" ? (
-                <Navigation data={applicantNav} />
+                    {/* main content */}
+                    <S.Content>
+                        {/* get element children */}
+                        {children}
+
+
+                        {/* job listings */}
+                        {/* <JobTable /> */}
+                    </S.Content>
+                </>
             ) : (
-                    <Navigation data={recruiterNav} />
+                    <h4>Loading...</h4>
                 )}
 
-            {/* main content */}
-            <S.Content>
-                {/* get element children */}
-                {children}
-
-
-                {/* job listings */}
-                {/* <JobTable /> */}
-            </S.Content>
         </div>
     );
 };

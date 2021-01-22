@@ -14,7 +14,7 @@ const Logout = () => {
         <MainContainer>
 
             <S.Header>Personal</S.Header>
-            <M.TextField
+            <S.TextField
                 id="input-with-icon-textfield"
                 label="Name"
                 defaultValue={data.userData.name}
@@ -27,7 +27,7 @@ const Logout = () => {
                     ),
                 }}
             />
-            <M.TextField
+            <S.TextField
                 id="input-with-icon-textfield"
                 label="Email"
                 defaultValue={data.userData.email}

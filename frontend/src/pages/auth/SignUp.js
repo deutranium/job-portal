@@ -72,7 +72,7 @@ function SignUp() {
 				.then((res) => {
 					setData({
 						...data,
-						userData: res.data,
+						userData: res.data[0],
 					});
 				})
 				.catch((err) => {
@@ -84,8 +84,7 @@ function SignUp() {
 				...data,
 				auth: "AUTHENTICATED",
 				token: loginResponse.data.token,
-				user: loginResponse.data.user,
-				userData: data.userData
+				user: loginResponse.data.user
 			});
 
 			// set values in local storage

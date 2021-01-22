@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, useHistory } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Theme, GlobalStyle } from "./theme";
 import * as T from "./muiTheme";
+import axios from "axios"
 
 import Landing from "./pages/auth/Landing";
 import SignUp from "./pages/auth/SignUp";
@@ -20,7 +21,7 @@ const previousState = {
         id: localStorage.getItem("user_id"),
         name: localStorage.getItem("user_name"),
         category: localStorage.getItem("user_category"),
-    },
+    }
 };
 
 const initialState = {
@@ -31,25 +32,58 @@ const initialState = {
 };
 
 
-const App = () => {
-    const [data, setData] = useState(initialState);
 
+
+const App = () => {
+    
+    const [data, setData] = useState(initialState);
+    
     const providerData = useMemo(() => ({ data, setData }), [data, setData]);
+    
+    
+    useEffect(() => {
+        const userInfo = async () => {
+            await axios
+            .get("http://localhost:5000/users/", {
+                headers: {
+                    "x-auth-token": data.token,
+                },
+            })
+            .then((res) => {
+                setData({
+                    ...data,
+                    auth: "AUTHENTICATED",
+                    userData: res.data[0]
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+        userInfo()
+    }, []);
+    
+    
+    
 
     return (
-
+        
         <ThemeProvider theme={Theme}>
             <MuiThemeProvider theme={T.theme}>
                 <GlobalStyle />
                 <BrowserRouter>
                     <UserContext.Provider value={providerData}>
-
                         <Route exact path="/" component={Home} />
                         <Route path="/register" component={SignUp} />
                         <Route path="/login" component={Landing} />
                         <Route path="/logout" component={Logout} />
-                        <Route path="/profile" component={Profile} />
-
+                        {data.userData ? (
+                            <>
+                                <Route path="/profile" component={Profile} />
+                            </>
+                        ) : (
+                                <h3>Loading....</h3>
+                            )}
                     </UserContext.Provider>
                 </BrowserRouter>
             </MuiThemeProvider>
