@@ -41,7 +41,7 @@ const Home = () => {
         <div>
             {data.userData ? (
                 <MainContainer>
-                    <h1>Welcome {data.user.name}</h1>
+                    <h1>Welcome {data.userData.name}</h1>
                 </MainContainer>
             ) : (
                 <h3>Loading....</h3>
