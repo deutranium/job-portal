@@ -25,3 +25,20 @@ export const KeyboardDatePicker = styled(P.KeyboardDatePicker)`
 export const EducationWrapper = styled.div`
     margin: 50px 0;
 `;
+
+export const Paper = styled(M.Paper)`
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 10px;
+    margin: 15px 0;
+`;
+
+export const Chip = styled(M.Chip)`
+    margin: 5px;
+`;
+
+export const Button = styled(M.Button)`
+    margin: 10px !important;
+`;

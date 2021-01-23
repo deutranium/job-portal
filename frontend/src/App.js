@@ -29,6 +29,7 @@ const initialState = {
     token: null || previousState.token,
     user: null || previousState.user,
     userData: null,
+    edVals: []
 };
 
 

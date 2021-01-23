@@ -11,12 +11,6 @@ const EducationForm = (props) => {
     const [endDate, setEndDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const [name, setName] = React.useState();
 
-    // const [value, setValue] = useState({
-    //     name: name,
-    //     startDate: startDate,
-    //     endDate: endDate
-    // })
-
     const submitForm = (e) => {
         e.preventDefault();
         const value = {
@@ -25,6 +19,12 @@ const EducationForm = (props) => {
             endDate: endDate
         }
         props.submit(props.childIndex, value)
+    }
+
+    const deleteElem = (e) => {
+        // e.preventDefault();
+
+        props.deleteElem(props.childIndex)
     }
 
     return (
@@ -81,8 +81,8 @@ const EducationForm = (props) => {
                         </M.Grid>
                     </M.Grid>
                 </S.EducationWrapper>
-                <M.Button variant="contained" color="primary" type="submit">Submit</M.Button>
-                <M.Button variant="contained" color="secondary">Delete</M.Button>
+                <S.Button variant="contained" color="primary" type="submit">Submit</S.Button>
+                <S.Button variant="contained" color="secondary" onClick={() => props.deleteElem(props.childIndex,)}>Delete</S.Button>
             </form>
             <S.Divider light />
         </P.MuiPickersUtilsProvider >

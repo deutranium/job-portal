@@ -30,8 +30,7 @@ function Landing() {
             const loginResponse = await axios.post(
                 "http://localhost:5000/users/login",
                 loginUser
-            )
-
+            );
 
             // get user info
             await axios
@@ -41,7 +40,6 @@ function Landing() {
                     },
                 })
                 .then((res) => {
-                    console.log(loginResponse)
                     setData({
                         ...data,
                         auth: "AUTHENTICATED",
@@ -69,7 +67,8 @@ function Landing() {
 
             history.push("/");
         } catch (err) {
-            err.response.data.message && setError(err.response.data.message);
+            console.log(err)
+            err.response.data.msg && setError(err.response.data.msg);
         }
     };
 
