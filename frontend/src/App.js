@@ -12,7 +12,7 @@ import Home from "./pages/Home";
 import UserContext from "./context/UserContext";
 import { MuiThemeProvider } from "@material-ui/core";
 import Logout from "./pages/auth/Logout";
-import Profile from "./pages/Profile"
+import Profile from "./pages/Profile/Profile"
 
 const previousState = {
     auth: localStorage.getItem("auth"),
