@@ -16,16 +16,15 @@ const Profile = () => {
     // EDUCATION DETAILS
 
     // values
-    // const [data.edVals, setEducationFields] = useState([]);
     const [mapOfValues, setMapOfValues] = useState({});
-    // const [values, setValues] = useState([]);
     
     // functions
     // submit the child element
     const onChildSubmit = (childIndex, value) => {
-        const temp = mapOfValues;
-        temp[childIndex] = value
-        setMapOfValues(temp)
+        setMapOfValues({
+            ...mapOfValues,
+            [childIndex]: value
+        })
     }
     
     // delete the child element
@@ -40,18 +39,10 @@ const Profile = () => {
         const tempVals = data.edVals;
         tempVals[childIndex] = <></>
         
-        
         setData({
             ...data,
             edVals: tempVals
         })
-        console.log(childIndex)
-        console.log(data.edVals)
-        console.log(mapOfValues)
-        // const tempField = data.edVals.splice(childIndex, 1)
-        // console.log(tempField)
-        // console.log(childIndex)
-        // setEducationFields(tempField)
     }
     
     // add more child components
