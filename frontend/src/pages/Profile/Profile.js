@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MainContainer from "../../components/layout/MainContainer/MainContainer";
 import UserContext from "../../context/UserContext";
 import axios from "axios";
@@ -6,6 +6,7 @@ import axios from "axios";
 import * as M from "@material-ui/core";
 import * as S from "./styled";
 import * as I from '@material-ui/icons';
+import * as L from "@material-ui/lab";
 
 import EducationForm from "./EducationForm"
 
@@ -13,11 +14,16 @@ const Profile = () => {
 
     // Getting context and stuff
     const { data, setData } = useContext(UserContext);
-    const [message, setMessage] = useState()
+    const [message, setMessage] = useState({})
 
     // PERSONAL
-    const [name, setName] = useState(data.user.name);
-    const [email, setEmail] = useState(data.user.email)
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+
+    useEffect(() => {
+        setName(data.userData.name);
+        setEmail(data.userData.email)
+    }, [])
 
 
     // EDUCATION DETAILS
@@ -107,7 +113,7 @@ const Profile = () => {
             userId: userId
         }
 
-        if(email == "" || name == ""){
+        if (email == "" || name == "") {
             setMessage({
                 text: "Please enter a name and email",
                 type: "error"
@@ -117,13 +123,36 @@ const Profile = () => {
             await axios.post("http://localhost:5000/applicant/update", updateData, {
                 headers: {
                     "x-auth-token": data.token,
-                }})
-            .then((res) => {
-                console.log(res)
+                }
             })
-            .catch((err) => {
-                console.log(err)
-            })
+                .then((res) => {
+                    setMessage({
+                        text: "Successfully updated",
+                        type: "success"
+                    })
+                    setData({
+                        ...data,
+                        user: {
+                            ...data.user,
+                            email: email
+                        },
+                        userData: {
+                            name: name,
+                            email: email,
+                            education: edArr,
+                            skills: skillArr
+                        }
+                    })
+
+                    // console.log(data)
+
+                })
+                .catch((err) => {
+                    setMessage({
+                        text: err.msg,
+                        type: "error"
+                    })
+                })
         }
 
 
@@ -225,7 +254,7 @@ const Profile = () => {
 
 
             </M.Grid>
-
+            {message.text && <L.Alert severity="success" style={{ marginLeft: 10 }}>{message.text}</L.Alert>}
             <S.SubmitButton onClick={submitProfile}>Submit</S.SubmitButton>
         </MainContainer>
     );

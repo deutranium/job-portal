@@ -22,34 +22,38 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.post("/update", auth, async (req, res) => {
+router.post("/update", async (req, res) => {
     try {
         const id = req.body.applicantId
         const userId = req.body.userId
 
+        const mailSame = await User.findById(userId)
+
         const existingUser = await User.findOne({ email: req.body.email });
-		if (existingUser && existingUser._id == userId)
-			return res
-				.status(400)
-				.json({ msg: "An account with this email already exists." });
-
-
-
-        const tempBody = req.body;
-        delete tempBody["applicantId"]
-        delete tempBody["userId"]
-        const updatedApplicant = await Applicant.findByIdAndUpdate(id, tempBody, {useFindAndModify: false});
-
-        const userBody = {
-            email: req.body.email,
-            name: req.body.name
+        if (existingUser && !(mailSame.email == req.body.email)){
+            console.log(existingUser)
+                return res
+                    .status(400)
+                    .json({ msg: "An account with this email already exists." });
+        }
+        else {
+            const tempBody = req.body;
+            delete tempBody["applicantId"]
+            delete tempBody["userId"]
+            const updatedApplicant = await Applicant.findByIdAndUpdate(id, tempBody, {useFindAndModify: false});
+    
+            const userBody = {
+                email: req.body.email,
+                name: req.body.name
+            }
+    
+            await User.findByIdAndUpdate(userId, userBody,  {useFindAndModify: false})
+            res.json(updatedApplicant)
         }
 
-        const updatedUser = await User.findByIdAndUpdate(userId, userBody,  {useFindAndModify: false})
-        res.json(updatedUser)
 
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: err });
     }
 })
 
