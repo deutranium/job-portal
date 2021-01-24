@@ -12,12 +12,16 @@ const Profile = () => {
     // Getting context and stuff
     const { data, setData } = useContext(UserContext);
 
+    // PERSONAL
+    const [name, setName] = useState(data.user.name);
+    const [email, setEmail] = useState(data.user.email)
+
 
     // EDUCATION DETAILS
 
     // values
     const [mapOfValues, setMapOfValues] = useState({});
-    
+
     // functions
     // submit the child element
     const onChildSubmit = (childIndex, value) => {
@@ -26,25 +30,25 @@ const Profile = () => {
             [childIndex]: value
         })
     }
-    
+
     // delete the child element
     const onChildDelete = (childIndex) => {
-        
+
         // child values
         const tempMap = mapOfValues
         tempMap[childIndex] = null
         setMapOfValues(tempMap)
-        
+
         // child component
         const tempVals = data.edVals;
         tempVals[childIndex] = <></>
-        
+
         setData({
             ...data,
             edVals: tempVals
         })
     }
-    
+
     // add more child components
     const edComp = <EducationForm submit={onChildSubmit} deleteElem={onChildDelete} />
     const submit = () => {
@@ -54,11 +58,6 @@ const Profile = () => {
             ...data,
             edVals: tempEdVals
         })
-        console.log(data.edVals)
-    }
-
-    const a = () => {
-        console.log(mapOfValues)
         console.log(data.edVals)
     }
 
@@ -77,7 +76,23 @@ const Profile = () => {
         const idx = chipData[chipData.length - 1].key + 1
         tempChips.push({ key: idx, label: skill });
 
-        setSkill()
+        setSkill("")
+    }
+
+
+
+    const submitProfile = () => {
+        let skillArr = [];
+        chipData.forEach((chip) => {
+            skillArr.push(chip["label"])
+        });
+
+        let edArr = []
+        Object.keys(mapOfValues).map((i) => {
+            edArr.push(mapOfValues[i])
+        })
+
+        
     }
 
     return (
@@ -94,7 +109,6 @@ const Profile = () => {
                                 fullWidth
                                 id="input-with-icon-textfield"
                                 label="Name"
-                                defaultValue={data.userData.name}
                                 variant="outlined"
                                 InputProps={{
                                     startAdornment: (
@@ -103,6 +117,8 @@ const Profile = () => {
                                         </M.InputAdornment>
                                     ),
                                 }}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                         </M.Grid>
                         <M.Grid item md={6}>
@@ -119,6 +135,8 @@ const Profile = () => {
                                         </M.InputAdornment>
                                     ),
                                 }}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </M.Grid>
                     </M.Grid>
@@ -129,8 +147,7 @@ const Profile = () => {
 
                             {/* EDUCATION */}
                             <S.Header>Education</S.Header>
-                            <button onClick={a}>Print to console</button><br />
-                            <S.Button variant="contained" color="primary" onClick={submit}>Add Education</S.Button>
+                            <S.Button variant="outlined" color="primary" onClick={submit}>Add Education</S.Button>
                             {data.edVals.map((value, index) =>
                                 React.cloneElement(value, { key: index, childIndex: index }))}
 
@@ -149,8 +166,9 @@ const Profile = () => {
                                     ),
                                 }}
                                 onChange={(e) => setSkill(e.target.value)}
+                                value={skill}
                             />
-                            <S.Button variant="contained" color="primary" onClick={addSkill}>Add Skill</S.Button>
+                            <S.Button variant="outlined" color="primary" onClick={addSkill}>Add Skill</S.Button>
                             <S.Paper>
                                 {chipData.map((data) => {
 
@@ -173,6 +191,8 @@ const Profile = () => {
 
 
             </M.Grid>
+
+            <S.SubmitButton onClick={submitProfile}>Submit</S.SubmitButton>
         </MainContainer>
     );
 };

@@ -4,12 +4,16 @@ import DateFnsUtils from '@date-io/date-fns';
 import * as S from "./styled";
 import * as M from "@material-ui/core";
 import * as I from '@material-ui/icons';
+import * as L from "@material-ui/lab";
 
 const EducationForm = (props) => {
 
     const [startDate, setStartDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const [endDate, setEndDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const [name, setName] = React.useState();
+    const [error, setError] = React.useState();
+    const [success, setSuccess] = React.useState();
+    const [submitted, setSubmitted] = React.useState(false)
 
     const submitForm = (e) => {
         e.preventDefault();
@@ -18,13 +22,16 @@ const EducationForm = (props) => {
             startDate: startDate,
             endDate: endDate
         }
-        props.submit(props.childIndex, value)
-    }
-
-    const deleteElem = (e) => {
-        // e.preventDefault();
-
-        props.deleteElem(props.childIndex)
+        if (!name)
+            setError("Please enter a name")
+        else if (startDate > endDate)
+            setError("Start date cannot be later than end date")
+        else {
+            setError("")
+            props.submit(props.childIndex, value)
+            setSuccess("Successfully added")
+            setSubmitted(true)
+        }
     }
 
     return (
@@ -81,8 +88,10 @@ const EducationForm = (props) => {
                         </M.Grid>
                     </M.Grid>
                 </S.EducationWrapper>
-                <S.Button variant="contained" color="primary" type="submit">Submit</S.Button>
-                <S.Button variant="contained" color="secondary" onClick={() => props.deleteElem(props.childIndex,)}>Delete</S.Button>
+                {error && <L.Alert severity="error" style={{ marginLeft: 10 }}>{error}</L.Alert>}
+                {success && <L.Alert severity="success" style={{ marginLeft: 10 }}>{success}</L.Alert>}
+                <S.Button color="primary" type="submit" disabled={submitted && true} submit>Submit</S.Button>
+                <S.Button color="secondary" onClick={() => props.deleteElem(props.childIndex)} delete>Delete</S.Button>
             </form>
             <S.Divider light />
         </P.MuiPickersUtilsProvider >
