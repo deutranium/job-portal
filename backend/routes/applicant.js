@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const Applicant = require("../models/applicant.model");
+const User = require("../models/user.model");
 
 router.post("/register", async (req, res) => {
     try {
@@ -21,23 +22,44 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.get("/skills", auth, async (req, res) => {
+router.post("/update", auth, async (req, res) => {
     try {
-        const user = await User.findById(req.user);
-        if (user.category == "applicant") {
-            const info = await Applicant.find({
-                email: user.email,
-            });
-            res.json(info);
-        } else {
-            const info = await Recruiter.find({
-                email: user.email,
-            });
-            res.json(info);
+        const id = req.body.applicantId
+        const userId = req.body.userId
+
+        const existingUser = await User.findOne({ email: req.body.email });
+		if (existingUser && existingUser._id == userId)
+			return res
+				.status(400)
+				.json({ msg: "An account with this email already exists." });
+
+
+
+        const tempBody = req.body;
+        delete tempBody["applicantId"]
+        delete tempBody["userId"]
+        const updatedApplicant = await Applicant.findByIdAndUpdate(id, tempBody, {useFindAndModify: false});
+
+        const userBody = {
+            email: req.body.email,
+            name: req.body.name
         }
+
+        const updatedUser = await User.findByIdAndUpdate(userId, userBody,  {useFindAndModify: false})
+        res.json(updatedUser)
+
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 })
+
+router.delete("/delete", auth, async (req, res) => {
+	try {
+		const deletedUser = await User.findByIdAndDelete(req.user);
+		res.json(deletedUser);
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+});
 
 module.exports = router;

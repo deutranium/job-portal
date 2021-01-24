@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import MainContainer from "../../components/layout/MainContainer/MainContainer";
 import UserContext from "../../context/UserContext";
+import axios from "axios";
+
 import * as M from "@material-ui/core";
 import * as S from "./styled";
 import * as I from '@material-ui/icons';
@@ -11,6 +13,7 @@ const Profile = () => {
 
     // Getting context and stuff
     const { data, setData } = useContext(UserContext);
+    const [message, setMessage] = useState()
 
     // PERSONAL
     const [name, setName] = useState(data.user.name);
@@ -81,7 +84,7 @@ const Profile = () => {
 
 
 
-    const submitProfile = () => {
+    const submitProfile = async () => {
         let skillArr = [];
         chipData.forEach((chip) => {
             skillArr.push(chip["label"])
@@ -92,7 +95,38 @@ const Profile = () => {
             edArr.push(mapOfValues[i])
         })
 
-        
+        const applicantId = data.userData._id;
+        const userId = data.user.id
+
+        const updateData = {
+            name: name,
+            email: email,
+            education: edArr,
+            skills: skillArr,
+            applicantId: applicantId,
+            userId: userId
+        }
+
+        if(email == "" || name == ""){
+            setMessage({
+                text: "Please enter a name and email",
+                type: "error"
+            })
+        }
+        else {
+            await axios.post("http://localhost:5000/applicant/update", updateData, {
+                headers: {
+                    "x-auth-token": data.token,
+                }})
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        }
+
+
     }
 
     return (
