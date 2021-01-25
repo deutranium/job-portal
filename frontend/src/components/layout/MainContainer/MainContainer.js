@@ -4,7 +4,7 @@ import Navigation from "./Navigation";
 import JobTable from "../JobTable/JobTable";
 import UserContext from "./../../../context/UserContext";
 
-const MainContainer = ({ children }) => {
+const MainContainer = (props) => {
     // get data from context
     const { data } = useContext(UserContext);
 
@@ -13,7 +13,6 @@ const MainContainer = ({ children }) => {
             img: "home",
             text: "Home",
             url: "/",
-            active: true
         },
         {
             img: "list",
@@ -32,7 +31,6 @@ const MainContainer = ({ children }) => {
             img: "home",
             text: "Home",
             url: "/",
-            active: true
         },
         {
             img: "list",
@@ -43,23 +41,40 @@ const MainContainer = ({ children }) => {
             img: "heart",
             text: "Profile",
             url: "/profile"
+        },
+        {
+            img: "add-files",
+            text: "Add Job",
+            url: "/add-job"
         }
     ];
+
+    let nav = [];
+
+    if (data.user.category === "applicant")
+        nav = applicantNav;
+    else
+        nav = recruiterNav;
+
+
+    const activeTab = (props.active ? props.active : "Home")
+    
+    nav.forEach(elem => {
+        if(elem["text"] == activeTab){
+            elem["active"] = true;
+        }
+    });
 
     return (
         <div>
             {data.userData ? (
                 <>
-                    {data.user.category === "applicant" ? (
-                        <Navigation data={applicantNav} />
-                    ) : (
-                            <Navigation data={recruiterNav} />
-                        )}
+                    <Navigation data={nav} />
 
                     {/* main content */}
                     <S.Content>
                         {/* get element children */}
-                        {children}
+                        {props.children}
 
 
                         {/* job listings */}

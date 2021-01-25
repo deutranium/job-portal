@@ -13,6 +13,7 @@ import UserContext from "./context/UserContext";
 import { MuiThemeProvider } from "@material-ui/core";
 import Logout from "./pages/auth/Logout";
 import Profile from "./pages/Profile/Profile"
+import AddJob from "./pages/Jobs/AddJob"
 
 const previousState = {
     auth: localStorage.getItem("auth"),
@@ -81,6 +82,7 @@ const App = () => {
                         {data.userData ? (
                             <>
                                 <Route path="/profile" component={Profile} />
+                                <Route path="/add-job" component={AddJob} />
                             </>
                         ) : (
                                 <h3>Loading....</h3>

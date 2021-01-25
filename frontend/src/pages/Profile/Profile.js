@@ -159,7 +159,7 @@ const Profile = () => {
     }
 
     return (
-        <MainContainer>
+        <MainContainer active="Profile">
 
             <M.Grid container spacing={3}>
                 <M.Grid item md={6}>
