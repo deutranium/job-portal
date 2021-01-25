@@ -105,6 +105,7 @@ function Landing() {
 							</S.Button>
                         </form>
 						New user?{" "}
+                        {error && <L.Alert severity="error">{error}</L.Alert>}
                         <S.Link onClick={register}>Register here!</S.Link>
                         <S.Divider></S.Divider>
                     </M.CardContent>
