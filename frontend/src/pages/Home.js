@@ -5,6 +5,8 @@ import MainContainer from "../components/layout/MainContainer/MainContainer";
 import Landing from "./auth/Landing";
 import axios from "axios"
 
+import RecruiterHome from "./Home/RecruiterHome"
+
 const Home = () => {
     const history = useHistory();
     const { data, setData } = useContext(UserContext);
@@ -40,7 +42,13 @@ const Home = () => {
         <div>
             {data.userData ? (
                 <MainContainer>
-                    <h1>Welcome {data.userData.name}</h1>
+                    {/* <h1>Welcome {data.userData.name}</h1> */}
+
+                    {data.user.type == "applicant" ? (
+                        <h1>applicant</h1>
+                    ) : (
+                        <RecruiterHome />
+                    )}
                 </MainContainer>
             ) : (
                 <h3>Loading....</h3>

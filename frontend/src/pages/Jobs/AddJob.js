@@ -85,7 +85,7 @@ const AddJob = () => {
                 })
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.message);
             });
     }
 
@@ -157,9 +157,9 @@ const AddJob = () => {
                                     value={duration}
                                     label="Duration (in months)"
                                     onChange={(val) => setDuration(val.target.value)}
-                                    defaultValue={0}
+                                    defaultValue={-1}
                                 >
-                                    <M.MenuItem value={0}>
+                                    <M.MenuItem value={-1}>
                                         <em>Indefinite</em>
                                     </M.MenuItem>
                                     <M.MenuItem value={1}>One</M.MenuItem>
@@ -187,15 +187,15 @@ const AddJob = () => {
                                 <M.InputLabel>Type of Job</M.InputLabel>
                                 <M.Select
                                     value={type}
-                                    onChange={(val) => setType(val)}
+                                    onChange={(val) => setType(val.target.value)}
                                     label="Duration (in months)"
-                                    defaultValue={"full"}
+                                    defaultValue=""
                                 >
-                                    <M.MenuItem value={"full"}>
+                                    <M.MenuItem value="full">
                                         Full Time
                                     </M.MenuItem>
-                                    <M.MenuItem value={"part"}>Part Time</M.MenuItem>
-                                    <M.MenuItem value={"wfh"}>Work From Home</M.MenuItem>
+                                    <M.MenuItem value="part">Part Time</M.MenuItem>
+                                    <M.MenuItem value="wfh">Work From Home</M.MenuItem>
                                 </M.Select>
                             </M.FormControl>
                         </M.Grid>
