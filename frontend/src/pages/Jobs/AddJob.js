@@ -19,8 +19,8 @@ const AddJob = () => {
     const { data, setData } = useContext(UserContext);
 
     const [title, setTitle] = useState();
-    const [duration, setDuration] = useState(0);
-    const [positions, setPositions] = useState(0);
+    const [duration, setDuration] = useState(-1);
+    const [positions, setPositions] = useState(1);
     const [maxApplicants, setMaxApplicants] = useState(1);
     const [deadline, setDeadline] = useState(today);
     const [type, setType] = useState("full");

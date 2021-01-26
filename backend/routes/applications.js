@@ -28,12 +28,15 @@ router.post("/apply", async (req, res) => {
 });
 
 
-router.get("/find", async(req,res) => {
-    const job = await Job.findOne({jobId: req.body.id, applicantId: req.body.applicantId });
-    if(!job)
+router.post("/find", async(req,res) => {
+
+    const job = await Applications.findOne({jobId: req.body.jobId, applicantId: req.body.applicantId });
+    if(!job){
         return res.status(400).json({msg: "No todo item found !!"});
-    
-    res.json(job);
+    }
+    else{
+        res.status(200).json(job);
+    }
 });
 
 module.exports = router;
