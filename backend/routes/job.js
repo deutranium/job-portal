@@ -8,6 +8,7 @@ router.post("/add", auth, async (req, res) => {
             title,
             recruiterName,
             recruiterMail,
+            recruiterId,
             maxApplicants,
             positions,
             dateOfPosting,
@@ -36,6 +37,7 @@ router.post("/add", auth, async (req, res) => {
             title,
             recruiterName,
             recruiterMail,
+            recruiterId,
             maxApplicants,
             positions,
             dateOfPosting,
@@ -68,11 +70,12 @@ router.post("/delete", auth, async (req, res) => {
     } catch (err) { }
 });
 
-// router.delete("/:id", auth, async(req,res) => {
-//     const job = await Job.findOne({userId: req.user, _id: req.params.id });
-//     if(!job)
-//         return res.status(400).json({msg: "No todo item found !!"});
-//     const deletedItem = await Job.findByIdAndDelete(req.params.id);
-//     res.json(deletedItem);
-// });
+router.post("/:id", auth, async(req,res) => {
+    const job = await Job.findOne({_id: req.params.id });
+    if(!job)
+        return res.status(400).json({msg: "No todo item found !!"});
+    const deletedItem = await Job.findByIdAndDelete(req.params.id);
+    res.json(deletedItem);
+});
+
 module.exports = router;

@@ -60,6 +60,7 @@ const AddJob = () => {
             title: title,
             recruiterName: data.userData.name,
             recruiterMail: data.userData.email,
+            recruiterId: data.userData["_id"],
             maxApplicants: maxApplicants,
             positions: positions,
             dateOfPosting: today,

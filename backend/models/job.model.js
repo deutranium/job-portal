@@ -12,6 +12,10 @@ const jobSchema = new mongoose.Schema({
 	recruiterMail: {
 		type: String,
 		required: true,
+    },
+    recruiterId: {
+		type: String,
+		required: true,
 	},
 	maxApplicants: {
 		type: Number,

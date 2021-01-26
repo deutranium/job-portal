@@ -34,3 +34,4 @@ app.use("/users", require("./routes/users"));
 app.use("/job", require("./routes/job"));
 app.use("/applicant", require("./routes/applicant"));
 app.use("/recruiter", require("./routes/recruiter"));
+app.use("/applications", require("./routes/applications"));

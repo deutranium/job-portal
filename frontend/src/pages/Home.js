@@ -6,6 +6,7 @@ import Landing from "./auth/Landing";
 import axios from "axios"
 
 import RecruiterHome from "./Home/RecruiterHome"
+import ApplicantHome from "./Home/ApplicantHome"
 
 const Home = () => {
     const history = useHistory();
@@ -42,10 +43,11 @@ const Home = () => {
         <div>
             {data.userData ? (
                 <MainContainer>
+                    {console.log(data)}
                     {/* <h1>Welcome {data.userData.name}</h1> */}
 
-                    {data.user.type == "applicant" ? (
-                        <h1>applicant</h1>
+                    {data.user.category == "applicant" ? (
+                        <ApplicantHome />
                     ) : (
                         <RecruiterHome />
                     )}
