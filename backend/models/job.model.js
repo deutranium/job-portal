@@ -55,7 +55,12 @@ const jobSchema = new mongoose.Schema({
 		type: Array,
 		default: [],
 		required: true,
-	},
+    },
+    applications: {
+        type: Number,
+        default: 0,
+        required: true
+    }
 });
 
 module.exports = Job = mongoose.model("job", jobSchema);

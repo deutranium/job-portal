@@ -13,5 +13,7 @@ export const DeleteButton = styled(M.Button).attrs({"variant": "outlined"})`
     border-color: red !important;
 `;
 
-export const ApplyButton = styled(M.Button).attrs({"variant": "contained", "color": "primary"})`
+export const Filter = styled(M.Paper)`
+    padding: 20px 50px;
+    margin: 10px 0;
 `;

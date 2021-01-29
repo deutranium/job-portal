@@ -3,6 +3,7 @@ import UserContext from "../../context/UserContext";
 
 import * as M from "@material-ui/core"
 import * as L from "@material-ui/lab";
+import * as S from "./styled"
 
 import axios from "axios"
 
@@ -13,15 +14,16 @@ export default function FormDialog(props) {
 
     const [sop, setSop] = useState("");
     const [btn, setBtn] = useState({
-        name: "Apply",
-        disabled: false
+        name: "",
     })
 
     const [error, setError] = useState()
 
     const jobId = props.jobId;
     const applicantId = props.applicantId;
-    const recruiterId = props.recruiterId
+    const recruiterId = props.recruiterId;
+
+    let loaded = 0;
 
     const reqData = {
         jobId: jobId,
@@ -29,17 +31,54 @@ export default function FormDialog(props) {
         recruiterId: recruiterId
     }
 
-    axios.post("http://localhost:5000/applications/find", reqData)
-        .then((res) => {
-            if (res.status == 200)
-                setBtn({
-                    name: "Applied",
-                    disabled: true
+    useEffect(() => {
+
+        console.log("brhejkls")
+
+        const loadPls = async () => {
+            await axios.post("http://localhost:5000/applications/find", reqData)
+                .then((res) => {
+                    if (res.status == 200)
+                        setBtn({
+                            name: "Applied",
+                            disabled: true
+                        })
+                    // else {
+                    //     axios.get("http://localhost:5000/job/all", {
+                    //         headers: {
+                    //             "x-auth-token": data.token,
+                    //         },
+                    //     })
+                    //         .then((res) => {
+                    //             res.data.forEach(elem => {
+                    //                 if (elem["_id"] == jobId)
+                    //                     if ((elem.applications >= elem.maxApplicants) && (btn.name != "Applied"))
+                    //                         setBtn({
+                    //                             name: "FULL"
+                    //                         })
+                    //             });
+
+                    //         })
+                    //         .catch((err) => {
+                    //             console.log(err.message)
+                    //         });
+                    // }
                 })
-        })
-        .catch((err) => {
-            console.log(err.message)
-        });
+                .catch((err) => {
+                    setBtn({
+                        name: "Apply",
+                        disabled: false
+                    })
+                    console.log(err.message)
+                });
+
+        }
+
+        loadPls()
+    }, [])
+
+
+
 
 
     const handleClickOpen = () => {
@@ -85,36 +124,56 @@ export default function FormDialog(props) {
     }
 
     return (
-        <div>
-            <M.Button variant="outlined" color="primary" onClick={handleClickOpen} disabled={btn.disabled}>
-                {btn.name}
-            </M.Button>
-            <M.Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <M.DialogTitle id="form-dialog-title">Statement of Purpose</M.DialogTitle>
-                <M.DialogContent style={{ width: 500 }}>
-                    <M.TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Write SOP here"
-                        type="email"
-                        fullWidth
-                        value={sop}
-                        multiline
-                        rows={4}
-                        onChange={(e) => setSop(e.target.value)}
-                    />
-                </M.DialogContent>
-                {error && <L.Alert severity="error">{error}</L.Alert>}
-                <M.DialogActions>
-                    <M.Button onClick={handleClose} color="primary">
-                        Cancel
-                    </M.Button>
-                    <M.Button onClick={apply} color="primary">
-                        Apply
-                    </M.Button>
-                </M.DialogActions>
-            </M.Dialog>
-        </div>
+        <>
+            {/* { */}
+            {/* // loaded ? ( */}
+            <div>
+
+                {
+                    btn.name == "Full" ? (
+                        <M.Button variant="contained" color="secondary">Full</M.Button>
+                    ) : (
+                            <>
+                                {btn.name == "Applied" ? (
+                                    <M.Button variant="contained" onClick={handleClickOpen} disabled={btn.disabled}>Applied</M.Button>
+                                ) : (
+                                        <M.Button variant="contained" onClick={handleClickOpen} disabled={btn.disabled} color="primary">Apply</M.Button>
+                                    )}
+                            </>
+                        )
+                }
+
+                < M.Dialog open={open} onClose={handleClose}>
+                    <M.DialogTitle id="form-dialog-title">Statement of Purpose</M.DialogTitle>
+                    <M.DialogContent style={{ width: 500 }}>
+                        <M.TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="Write SOP here"
+                            type="email"
+                            fullWidth
+                            value={sop}
+                            multiline
+                            rows={4}
+                            onChange={(e) => setSop(e.target.value)}
+                        />
+                    </M.DialogContent>
+                    {error && <L.Alert severity="error">{error}</L.Alert>}
+                    <M.DialogActions>
+                        <M.Button onClick={handleClose} color="primary">
+                            Cancel
+                        </M.Button>
+                        <M.Button onClick={apply} color="primary">
+                            Apply
+                        </M.Button>
+                    </M.DialogActions>
+                </M.Dialog >
+            </div >
+
+            {/* // ) : ( */}
+            {/* <h2>Loading....</h2> */}
+            {/* // )} */}
+        </>
     );
 }

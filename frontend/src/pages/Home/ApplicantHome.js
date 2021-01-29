@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from "react"
 import UserContext from "../../context/UserContext";
+import axios from "axios"
 
 import * as M from "@material-ui/core"
 import * as S from "./styled"
-import * as L from "@material-ui/lab";
-
-
-import axios from "axios"
-
 
 import FormDialog from "./FormDialog"
 
@@ -15,7 +11,6 @@ import FormDialog from "./FormDialog"
 const RecruiterHome = () => {
 
     const { data, setData } = useContext(UserContext)
-    let loaded = 0
 
     useEffect(() => {
         const getJobs = () => {
@@ -37,13 +32,15 @@ const RecruiterHome = () => {
         }
         getJobs();
 
-        loaded = 1
-
     }, [])
 
     return (
         <>
             <h2>All Jobs</h2>
+
+            <S.Filter>
+                Filters
+            </S.Filter>
 
             {data.jobs ? (
                 <>
